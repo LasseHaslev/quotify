@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\UserRole;
 
 class User extends Authenticatable
 {
@@ -23,4 +24,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Connect with the role
+     *
+     * @return void
+     */
+    public function role()
+    {
+        return $this->belongsTo( UserRole::class );
+    }
+
+
 }
