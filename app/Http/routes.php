@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\QuotesApiController;
+use App\Http\Controllers\AuthorsApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,10 +17,17 @@ use App\Http\Controllers\QuotesApiController;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
+
+    // Quotes
     $api->get( 'quotes', QuotesApiController::class . '@index' );
     $api->get( 'quotes/random', QuotesApiController::class . '@random' );
     $api->get( 'quotes/{quote}', QuotesApiController::class . '@show' );
     // $api->get('users/{id}', 'App\Api\Controllers\UserController@show');
+
+    // Author
+    $api->get( 'authors', AuthorsApiController::class . '@index' );
+    $api->get( 'authors/{author}', AuthorsApiController::class . '@show' );
+
 });
 
 Route::get('/', function () {

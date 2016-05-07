@@ -17,7 +17,7 @@ class QuoteTransformer extends Fractal\TransformerAbstract
     // Get the default includes
     protected $defaultIncludes = [
         'content',
-        'author',
+        // 'author',
     ];
 
     // Get the available includes

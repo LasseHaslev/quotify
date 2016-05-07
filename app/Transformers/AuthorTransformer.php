@@ -14,6 +14,15 @@ use App\Transformers\QuoteLanguageTransformer;
 class AuthorTransformer extends Fractal\TransformerAbstract
 {
 
+    // Get the default includes
+    protected $defaultIncludes = [
+    ];
+
+    // Get the available includes
+    protected $availableIncludes = [
+        'quotes'
+    ];
+
 	public function transform( $quote ) {
 	    return [
             'id'=>$quote->id,
@@ -27,5 +36,16 @@ class AuthorTransformer extends Fractal\TransformerAbstract
             'updated_at'=>(string)$quote->updated_at,
 	    ];
 	}
+
+    /**
+     * Get this author quotes
+     *
+     * @return void
+     */
+    public function includeQuotes( $author )
+    {
+        return $this->collection( $author->quotes, new QuoteTransformer );
+    }
+
 
 }
