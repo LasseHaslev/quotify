@@ -14,9 +14,15 @@ use App\Transformers\QuoteLanguageTransformer;
 class QuoteTransformer extends Fractal\TransformerAbstract
 {
 
+    // Get the default includes
     protected $defaultIncludes = [
         'content',
         'author',
+    ];
+
+    // Get the available includes
+    protected $availableIncludes = [
+        'contents'
     ];
 
 	public function transform( $quote ) {
@@ -24,6 +30,26 @@ class QuoteTransformer extends Fractal\TransformerAbstract
             'id'=>$quote->id,
 	    ];
 	}
+
+    /**
+     * Get all contents
+     *
+     * @return void
+     */
+    public function includeContents( $quote )
+    {
+        return $this->collection( $quote->contents, new QuoteLanguageTransformer );
+    }
+
+    /**
+     * Get all available contents
+     *
+     * @return void
+     */
+    // public function includeLanguages( $quote )
+    // {
+        // return $this->collection( $quote->contents, new LanguageTransformer );
+    // }
 
     /**
      * Default include the Quote language for this resource
@@ -45,7 +71,7 @@ class QuoteTransformer extends Fractal\TransformerAbstract
         // Get language
         $language = Language::where( 'code', $languageCode )->first();
         // Check if we have a quote on the requested language, else get the quotes first lang
-        $quoteLang = $quote->languages()->where( 'language_id', $language->id )->first() ?: $quote->languages()->first();
+        $quoteLang = $quote->contents()->where( 'language_id', $language->id )->first() ?: $quote->contents()->first();
 
         return $this->item( $quoteLang, new QuoteLanguageTransformer );
     }
