@@ -24,7 +24,7 @@ class Quote extends Model
      *
      * @return void
      */
-    public function quotes()
+    public function languages()
     {
         return $this->hasMany( QuoteLanguage::class );
     }
