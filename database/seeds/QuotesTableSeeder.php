@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Quote;
 
 class QuotesTableSeeder extends Seeder
 {
@@ -15,7 +16,7 @@ class QuotesTableSeeder extends Seeder
             $quoteContainers = $u->quotes()->saveMany( factory( App\Quote::class, 5 )->make() );
             $quoteContainers->each( function ($quoteContainer)
             {
-                $quotes = $quoteContainer->quotes()->saveMany( factory( App\QuoteLanguage::class, 5 )->make() );
+                $quotes = $quoteContainer->contents()->saveMany( factory( App\QuoteLanguage::class, 5 )->make() );
                 // $quotes = $quoteContainer->quotes()->saveMany( factory( App\QuoteLanguage::class, 5 )->make() );
                 // $quotes->each( function ($quote)
                 // {
