@@ -15,12 +15,13 @@ class QuoteTransformer extends Fractal\TransformerAbstract
 {
 
     protected $defaultIncludes = [
-        'quoteLanguage',
+        'content',
         'author',
     ];
 
 	public function transform( $quote ) {
 	    return [
+            'id'=>$quote->id,
 	    ];
 	}
 
@@ -32,7 +33,7 @@ class QuoteTransformer extends Fractal\TransformerAbstract
      *
      * @return void
      */
-    public function includeQuoteLanguage( $quote )
+    public function includeContent( $quote )
     {
 
         $request = app( Request::class );
@@ -48,5 +49,16 @@ class QuoteTransformer extends Fractal\TransformerAbstract
 
         return $this->item( $quoteLang, new QuoteLanguageTransformer );
     }
+
+    /**
+     * Connect to this author
+     *
+     * @return void
+     */
+    public function includeAuthor( $quote )
+    {
+        return $this->item( $quote->author, new AuthorTransformer );
+    }
+
 
 }

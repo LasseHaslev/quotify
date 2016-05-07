@@ -18,6 +18,9 @@ class QuotesApiController extends ApiController
      */
     public function index()
     {
+        app('Dingo\Api\Transformer\Factory')->setAdapter(function ($app) {
+            return new \Dingo\Api\Transformer\Adapter\Fractal(new \League\Fractal\Manager, 'include', ',', false);
+        });
         return $this->response->collection( Quote::all(), new QuoteTransformer );
     }
 
