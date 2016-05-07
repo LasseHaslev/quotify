@@ -1,5 +1,8 @@
 <?php
 
+use App\Language;
+use App\User;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -25,3 +28,28 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Author::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'description' => $faker->text,
+        'link' => $faker->url,
+        'born' => $faker->dateTimeBetween( '-100 years', '-50 years' ),
+        'died' => $faker->dateTimeBetween( '-50 years', 'now' ),
+    ];
+});
+$factory->define(App\QuoteContainer::class, function (Faker\Generator $faker) {
+    return [
+    ];
+});
+$factory->define(App\Quote::class, function (Faker\Generator $faker) {
+    $language = Language::all()->random();
+    $user = User::all()->random();
+    return [
+        'text' => $faker->text,
+        'language_id' => $language->id,
+        'confirmed_by' => $user->id,
+    ];
+});
+
+
