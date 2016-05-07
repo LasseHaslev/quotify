@@ -11,8 +11,6 @@ class SettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Language::class, 50)->create()->each(function($u) {
-            // $u->posts()->save(factory(App\Post::class)->make());
-        });
+        $this->call(LanguagesTableSeeder::class);
     }
 }
