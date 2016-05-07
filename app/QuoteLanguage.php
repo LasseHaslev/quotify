@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Quote;
+use App\Language;
+use Illuminate\Database\Eloquent\Model;
 
 class QuoteLanguage extends Model
 {
@@ -17,5 +18,16 @@ class QuoteLanguage extends Model
     {
         return $this->belongsTo( Quote::class );
     }
+
+    /**
+     * Get the language for this quote content
+     *
+     * @return void
+     */
+    public function language()
+    {
+        return $this->belongsTo( Language::class );
+    }
+
 
 }

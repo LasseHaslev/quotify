@@ -22,6 +22,9 @@ class AuthorTransformer extends Fractal\TransformerAbstract
             'link'=>$quote->link,
             'born'=>(string)$quote->born,
             'died'=>(string)$quote->died,
+
+            'created_at'=>(string)$quote->created_at,
+            'updated_at'=>(string)$quote->updated_at,
 	    ];
 	}
 

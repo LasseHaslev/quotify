@@ -28,6 +28,9 @@ class QuoteTransformer extends Fractal\TransformerAbstract
 	public function transform( $quote ) {
 	    return [
             'id'=>$quote->id,
+
+            'created_at'=>(string)$quote->created_at,
+            'updated_at'=>(string)$quote->updated_at,
 	    ];
 	}
 
