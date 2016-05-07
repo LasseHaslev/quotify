@@ -17,12 +17,12 @@ class QuoteTransformer extends Fractal\TransformerAbstract
     // Get the default includes
     protected $defaultIncludes = [
         'content',
-        // 'author',
     ];
 
     // Get the available includes
     protected $availableIncludes = [
-        'contents'
+        'contents',
+        'author',
     ];
 
 	public function transform( $quote ) {

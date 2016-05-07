@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsersApiController;
 use App\Http\Controllers\QuotesApiController;
 use App\Http\Controllers\AuthorsApiController;
 
@@ -17,6 +18,9 @@ use App\Http\Controllers\AuthorsApiController;
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
+
+    // Users
+    $api->get( 'users/{user}/favorites', UsersApiController::class . '@favorites' );
 
     // Quotes
     $api->get( 'quotes', QuotesApiController::class . '@index' );
