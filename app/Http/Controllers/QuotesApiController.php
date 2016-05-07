@@ -6,6 +6,7 @@ use App\Quote;
 use App\Language;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Transformers\QuoteTransformer;
 use App\Transformers\QuoteLanguageTransformer;
 
 class QuotesApiController extends ApiController
@@ -17,7 +18,7 @@ class QuotesApiController extends ApiController
      */
     public function index()
     {
-        return $this->response->collection( QuoteLanguage::all(), new QuoteLanguageTransformer );
+        return $this->response->collection( Quote::all(), new QuoteTransformer );
     }
 
     /**
@@ -47,19 +48,9 @@ class QuotesApiController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( Request $request, Quote $quote )
+    public function show( Quote $quote )
     {
-
-        // Get the language code we want to use
-        $languageCode = $request->get( 'lang' ) ?: $request->get( 'language' );
-        $languageCode = $languageCode ?: $request->getLocale();
-
-        // Get language
-        $language = Language::where( 'code', $languageCode )->first();
-        // Check if we have a quote on the requested language, else get the quotes first lang
-        $quoteLang = $quote->languages()->where( 'language_id', $language->id )->first() ?: $quote->languages()->first();
-
-        return $this->response->item( $quoteLang, new QuoteLanguageTransformer );
+        return $this->response->item( $quote, new QuoteTransformer );
     }
 
     /**

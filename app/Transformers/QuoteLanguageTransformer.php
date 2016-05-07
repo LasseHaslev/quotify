@@ -14,6 +14,7 @@ class QuoteLanguageTransformer extends Fractal\TransformerAbstract
 	    return [
 	        'id'      => (int) $quote->id,
 	        'text'   => $quote->text,
+	        'language_id'   => $quote->language_id,
 	    ];
 	}
 }

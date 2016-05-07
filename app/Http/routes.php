@@ -17,6 +17,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
     $api->get( 'quotes', QuotesApiController::class . '@index' );
+    $api->get( 'quotes/random', QuotesApiController::class . '@random' );
     $api->get( 'quotes/{quote}', QuotesApiController::class . '@show' );
     // $api->get('users/{id}', 'App\Api\Controllers\UserController@show');
 });
