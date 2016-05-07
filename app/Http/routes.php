@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\UsersApiController;
 use App\Http\Controllers\QuotesApiController;
 use App\Http\Controllers\AuthorsApiController;
 
@@ -20,7 +19,9 @@ $api = app('Dingo\Api\Routing\Router');
 $api->version('v1', function ($api) {
 
     // Users
-    $api->get( 'users/{user}/favorites', UsersApiController::class . '@favorites' );
+    // $api->get( 'users/{user}/favorites', UsersApiController::class . '@favorites' );
+    $api->get( 'users/{user}/quotes', QuotesApiController::class . '@index' );
+    $api->get( 'users/{user}/quotes/random', QuotesApiController::class . '@random' );
 
     // Quotes
     $api->get( 'quotes', QuotesApiController::class . '@index' );
@@ -31,6 +32,7 @@ $api->version('v1', function ($api) {
     // Author
     $api->get( 'authors', AuthorsApiController::class . '@index' );
     $api->get( 'authors/{author}', AuthorsApiController::class . '@show' );
+    $api->get( 'authors/{author}/quotes', QuotesApiController::class . '@index' );
 
 });
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Quote;
+use App\Author;
 use App\Language;
 use App\Http\Requests;
 use Illuminate\Http\Request;
@@ -16,12 +18,22 @@ class QuotesApiController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index( User $user = null, Author $author = null )
     {
         // Deactivate eager loading for this request
         app('Dingo\Api\Transformer\Factory')->setAdapter(function ($app) {
             return new \Dingo\Api\Transformer\Adapter\Fractal(new \League\Fractal\Manager, 'include', ',', false);
         });
+
+        // If user is defined we use the favorites to get the info
+        if ( $user->id ) {
+            return $this->response->collection( $user->favorites, new QuoteTransformer );
+        }
+
+        // If user is defined we use the favorites to get the info
+        if ( $author->id ) {
+            return $this->response->collection( $author->quotes, new QuoteTransformer );
+        }
 
         return $this->response->collection( Quote::all(), new QuoteTransformer );
     }
@@ -64,9 +76,18 @@ class QuotesApiController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function random()
+    public function random( User $user = null )
     {
-        $quote = Quote::all()->random();
+
+        // If user is defined we use the favorites to get the info
+        if ( $user->id ) {
+            $quote = $user->favorites->random();
+        }
+        else {
+            $quote = Quote::all()->random();
+        }
+
+        // return it
         return $this->response->item( $quote, new QuoteTransformer );
     }
 
