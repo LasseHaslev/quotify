@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\QuoteContainer;
+use App\Quote;
 
 class Author extends Model
 {
@@ -14,7 +14,7 @@ class Author extends Model
      */
     public function quotes()
     {
-        return $this->hasMany( QuoteContainer::class );
+        return $this->hasMany( Quote::class );
     }
 
 }

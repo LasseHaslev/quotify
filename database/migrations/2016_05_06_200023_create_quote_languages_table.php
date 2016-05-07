@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuotesTable extends Migration
+class CreateQuoteLanguagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateQuotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('quotes', function (Blueprint $table) {
+        Schema::create('quote_languages', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string( 'text' );
@@ -35,12 +35,12 @@ class CreateQuotesTable extends Migration
                 ->on( 'languages' )
                 ->onDelete( 'set null' );
 
-            $table->integer( 'quote_container_id' )
+            $table->integer( 'quote_id' )
                 ->unsigned()
                 ->index();
-            $table->foreign( 'quote_container_id' )
+            $table->foreign( 'quote_id' )
                 ->references( 'id' )
-                ->on( 'quote_containers' )
+                ->on( 'quotes' )
                 ->onDelete( 'cascade' );
 
             $table->timestamps();
@@ -54,6 +54,6 @@ class CreateQuotesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('quotes');
+        Schema::drop('quote_languages');
     }
 }

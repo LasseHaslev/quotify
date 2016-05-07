@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuoteContainersTable extends Migration
+class CreateQuotesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateQuoteContainersTable extends Migration
      */
     public function up()
     {
-        Schema::create('quote_containers', function (Blueprint $table) {
+        Schema::create('quotes', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer( 'author_id' )
@@ -34,6 +34,6 @@ class CreateQuoteContainersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('quote_containers');
+        Schema::drop('quotes');
     }
 }

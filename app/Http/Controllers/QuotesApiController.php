@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Quote;
-use App\Transformers\QuoteTransformer;
+use App\QuoteLanguage;
+use App\Transformers\QuoteLanguageTransformer;
 
 class QuotesApiController extends ApiController
 {
@@ -17,7 +17,7 @@ class QuotesApiController extends ApiController
      */
     public function index()
     {
-        return $this->response->collection( Quote::all(), new QuoteTransformer );
+        return $this->response->collection( QuoteLanguage::all(), new QuoteLanguageTransformer );
     }
 
     /**
@@ -47,9 +47,9 @@ class QuotesApiController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show( Quote $quote )
+    public function show( QuoteLanguage $quote )
     {
-        return $this->response->item( $quote, new QuoteTransformer );
+        return $this->response->item( $quote, new QuoteLanguageTransformer );
     }
 
     /**

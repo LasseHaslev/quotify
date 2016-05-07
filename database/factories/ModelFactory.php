@@ -38,11 +38,11 @@ $factory->define(App\Author::class, function (Faker\Generator $faker) {
         'died' => $faker->dateTimeBetween( '-50 years', 'now' ),
     ];
 });
-$factory->define(App\QuoteContainer::class, function (Faker\Generator $faker) {
+$factory->define(App\Quote::class, function (Faker\Generator $faker) {
     return [
     ];
 });
-$factory->define(App\Quote::class, function (Faker\Generator $faker) {
+$factory->define(App\QuoteLanguage::class, function (Faker\Generator $faker) {
     $language = Language::all()->random();
     $user = User::all()->random();
     return [

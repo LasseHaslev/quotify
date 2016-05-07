@@ -5,10 +5,10 @@ namespace App\Transformers;
 use League\Fractal;
 
 /**
- * Class QuoteTransformer
+ * Class QuoteLanguageTransformer
  * @author Lasse S. Haslev
  */
-class QuoteTransformer extends Fractal\TransformerAbstract
+class QuoteLanguageTransformer extends Fractal\TransformerAbstract
 {
 	public function transform( $quote) {
 	    return [
