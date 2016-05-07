@@ -16,6 +16,7 @@ class QuoteTransformer extends Fractal\TransformerAbstract
 
     protected $defaultIncludes = [
         'quoteLanguage',
+        'author',
     ];
 
 	public function transform( $quote ) {
@@ -24,7 +25,10 @@ class QuoteTransformer extends Fractal\TransformerAbstract
 	}
 
     /**
-     * undocumented function
+     * Default include the Quote language for this resource
+     * We also select language based on ?lang={lang code} and ?language={lang code}
+     * If none of them is selected, we first check if we got an english quote
+     * else we get the first applied lang
      *
      * @return void
      */
