@@ -54,6 +54,18 @@ class QuotesApiController extends ApiController
     }
 
     /**
+     * Display a random resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function random()
+    {
+        $quote = Quote::all()->random();
+        return $this->response->item( $quote, new QuoteTransformer );
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
