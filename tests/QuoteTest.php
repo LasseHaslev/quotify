@@ -40,7 +40,7 @@ class QuoteTest extends TestCase
      *
      * @return void
      */
-    public function testBaseQuotes()
+    public function testGetBaseQuotes()
     {
 
         // Get all the quotes
@@ -66,7 +66,7 @@ class QuoteTest extends TestCase
      *
      * @return
      */
-    public function testUserQuotes()
+    public function testGetUserQuotes()
     {
         // Get all user favorites the quotes
         $response = $this->get( '/api/users/1/quotes' )
