@@ -25,14 +25,14 @@ $api->version('v1', function ($api) {
 
     // Quotes
     $api->get( 'quotes', QuotesApiController::class . '@index' );
-    $api->get( 'quotes/random', QuotesApiController::class . '@random' );
     $api->get( 'quotes/{quote}', QuotesApiController::class . '@show' );
-    // $api->get('users/{id}', 'App\Api\Controllers\UserController@show');
+    $api->get( 'quotes/random', QuotesApiController::class . '@random' );
 
     // Author
     $api->get( 'authors', AuthorsApiController::class . '@index' );
     $api->get( 'authors/{author}', AuthorsApiController::class . '@show' );
     $api->get( 'authors/{author}/quotes', QuotesApiController::class . '@index' );
+    $api->get( 'authors/{author}/quotes/random', QuotesApiController::class . '@random' );
 
 });
 

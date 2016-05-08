@@ -76,12 +76,15 @@ class QuotesApiController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function random( User $user = null )
+    public function random( User $user = null, Author $author = null )
     {
 
         // If user is defined we use the favorites to get the info
         if ( $user->id ) {
             $quote = $user->favorites->random();
+        }
+        if ( $author->id ) {
+            $quote = $author->quotes->random();
         }
         else {
             $quote = Quote::all()->random();
