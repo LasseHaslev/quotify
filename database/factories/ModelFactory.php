@@ -44,11 +44,18 @@ $factory->define(App\Quote::class, function (Faker\Generator $faker) {
 });
 $factory->define(App\QuoteLanguage::class, function (Faker\Generator $faker) {
     $language = Language::all()->random();
-    $user = User::all()->random();
     return [
         'text' => $faker->text,
         'language_id' => $language->id,
         'confirmed_by' => $user->id,
+        'quote_id'=> function () {
+            $quote = Quote::all()->count() ? Quote::all()->random() : factory(Quote::class)->create()->id;
+            return $quote->id;
+        },
+        'language_id'=> function () {
+            $language = Language::all()->count() ? Language::all()->random() : factory(Language::class)->create()->id;
+            return $language->id;
+        }
     ];
 });
 
