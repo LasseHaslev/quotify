@@ -7,7 +7,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class QuoteTest extends TestCase
 {
 
-    protected $quote = null;
+    protected $singleQuoteFormat = null;
+    protected $quoteFormat = null;
     protected $quoteContentFormat = null;
 
     /**
@@ -21,12 +22,13 @@ class QuoteTest extends TestCase
                 'text',
             ]
         ];
+        $this->singleQuoteFormat = [
+            'id',
+            'content'=>$this->quoteContentFormat,
+        ];
         $this->quoteFormat = [
             'data'=>[
-                '*'=>[
-                    'id',
-                    'content'=>$this->quoteContentFormat,
-                ],
+                '*'=>$this->singleQuoteFormat,
             ]
         ];
     }
@@ -40,8 +42,32 @@ class QuoteTest extends TestCase
     public function testExample()
     {
 
+        // Get all the quotes
         $response = $this->get( '/api/quotes' )
             ->seeJsonStructure( $this->quoteFormat );
+
+        // Get all user favorites the quotes
+        $response = $this->get( '/api/users/1/quotes' )
+            ->seeJsonStructure( $this->quoteFormat );
+
+
+        // Get single quote
+        $response = $this->get( '/api/quotes/1' )
+            ->seeJsonStructure( [
+                'data'=>$this->singleQuoteFormat
+            ] );
+
+        // Get single random quote
+        $response = $this->get( '/api/quotes/random' )
+            ->seeJsonStructure( [
+                'data'=>$this->singleQuoteFormat
+            ] );
+
+        // Get single user quote
+        $response = $this->get( '/api/users/1/quotes/random' )
+            ->seeJsonStructure( [
+                'data'=>$this->singleQuoteFormat
+            ] );
 
         // $this->assertTrue(true);
     }

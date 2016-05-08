@@ -25,8 +25,8 @@ $api->version('v1', function ($api) {
 
     // Quotes
     $api->get( 'quotes', QuotesApiController::class . '@index' );
-    $api->get( 'quotes/{quote}', QuotesApiController::class . '@show' );
     $api->get( 'quotes/random', QuotesApiController::class . '@random' );
+    $api->get( 'quotes/{quote}', QuotesApiController::class . '@show' );
 
     // Author
     $api->get( 'authors', AuthorsApiController::class . '@index' );
