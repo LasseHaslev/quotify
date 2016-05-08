@@ -12,11 +12,11 @@ class QuoteLanguageTransformer extends Fractal\TransformerAbstract
 {
 
     // Get the available includes
-    protected $availableIncludes = [
+    protected $defaultIncludes = [
         'language'
     ];
 
-	public function transform( $quote) {
+	public function transform( $quote ) {
 	    return [
 	        'id'      => (int) $quote->id,
 	        'text'   => $quote->text,

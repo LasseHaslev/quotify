@@ -28,12 +28,11 @@ class CreateQuoteLanguagesTable extends Migration
 
             $table->integer( 'language_id' )
                 ->unsigned()
-                ->nullable()
                 ->index();
             $table->foreign( 'language_id' )
                 ->references( 'id' )
                 ->on( 'languages' )
-                ->onDelete( 'set null' );
+                ->onDelete( 'cascade' );
 
             $table->integer( 'quote_id' )
                 ->unsigned()

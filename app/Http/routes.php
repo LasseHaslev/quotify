@@ -28,6 +28,10 @@ $api->version('v1', function ($api) {
     $api->get( 'quotes/random', QuotesApiController::class . '@random' );
     $api->get( 'quotes/{quote}', QuotesApiController::class . '@show' );
 
+    $api->post( 'quotes', QuotesApiController::class . '@store' );
+
+
+
     // Author
     $api->get( 'authors', AuthorsApiController::class . '@index' );
     $api->get( 'authors/{author}', AuthorsApiController::class . '@show' );

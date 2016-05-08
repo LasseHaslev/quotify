@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class QuoteTest extends TestCase
 {
 
+    use DatabaseMigrations;
+
     protected $singleQuoteFormat = null;
     protected $quoteFormat = null;
     protected $quoteContentFormat = null;
@@ -32,6 +34,50 @@ class QuoteTest extends TestCase
             ]
         ];
     }
+
+    /**
+     * Saving new quote to database
+     *
+     * @return void
+     */
+    public function testNewQuote()
+    {
+
+        $response = $this->call( 'POST', '/api/quotes', [
+            "data"=>[
+                "content"=>[
+                    "data"=>[
+                        "id"=>16,
+                        "text"=>"Cumque impedit mollitia quis. Debitis rerum repellendus aliquid perspiciatis quisquam officia. Rerum est excepturi quaerat.",
+                        "language_id"=>8,
+                        "language"=>[
+                            "data"=>[
+                                "id"=>8,
+                                "code"=>"bi",
+                                "name"=>"Bislama",
+                            ]
+                        ]
+                    ]
+                ],
+                "author_id"=>1,
+                "author"=>[
+                    "data"=>[
+                        "id"=>1,
+                        "name"=>"Aryanna Treutel",
+                        "description"=>"Suscipit nostrum dolores et. Perferendis voluptatum non veritatis harum quia quos et nisi. Voluptas aut distinctio enim. Repudiandae modi suscipit culpa consequatur sunt qui.",
+                        "link"=>"http://brakus.com/et-autem-impedit-dicta-saepe-sed",
+                        "born"=>"1955-05-01",
+                        "died"=>"2015-06-26",
+                        "created_at"=>"2016-05-07 21:32:39",
+                        "updated_at"=>"2016-05-07 21:32:39"
+                    ],
+                ]
+            ]
+        ] );
+        $this->assertEquals(201, $response->status());
+
+    }
+
 
 
     /**

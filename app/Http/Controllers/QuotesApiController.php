@@ -10,6 +10,7 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Transformers\QuoteTransformer;
 use App\Transformers\QuoteLanguageTransformer;
+use App\Jobs\StoreQuote;
 
 class QuotesApiController extends ApiController
 {
@@ -20,6 +21,7 @@ class QuotesApiController extends ApiController
      */
     public function index( User $user = null, Author $author = null )
     {
+
         // Deactivate eager loading for this request
         app('Dingo\Api\Transformer\Factory')->setAdapter(function ($app) {
             return new \Dingo\Api\Transformer\Adapter\Fractal(new \League\Fractal\Manager, 'include', ',', false);
@@ -56,7 +58,9 @@ class QuotesApiController extends ApiController
      */
     public function store(Request $request)
     {
-        //
+        $quote = $this->dispatch( new StoreQuote( $request->get( 'data' ) ) );
+        return $this->response->item( $quote, new QuoteTransformer )
+            ->setStatusCode( 201 );
     }
 
     /**

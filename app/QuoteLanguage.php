@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class QuoteLanguage extends Model
 {
 
+    protected $fillable = [
+        'text',
+        'language_id',
+    ];
+
     /**
      * Connect this lang to the quote
      *
