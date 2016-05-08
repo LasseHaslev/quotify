@@ -35,21 +35,17 @@ class QuoteTest extends TestCase
 
 
     /**
-     * A basic test example.
+     * Test the basic quotes
+     * /quotes
      *
      * @return void
      */
-    public function testExample()
+    public function testBaseQuotes()
     {
 
         // Get all the quotes
         $response = $this->get( '/api/quotes' )
             ->seeJsonStructure( $this->quoteFormat );
-
-        // Get all user favorites the quotes
-        $response = $this->get( '/api/users/1/quotes' )
-            ->seeJsonStructure( $this->quoteFormat );
-
 
         // Get single quote
         $response = $this->get( '/api/quotes/1' )
@@ -63,12 +59,24 @@ class QuoteTest extends TestCase
                 'data'=>$this->singleQuoteFormat
             ] );
 
+    }
+
+    /**
+     * Test the /users/{user}/quotes
+     *
+     * @return
+     */
+    public function testUserQuotes()
+    {
+        // Get all user favorites the quotes
+        $response = $this->get( '/api/users/1/quotes' )
+            ->seeJsonStructure( $this->quoteFormat );
+
         // Get single user quote
         $response = $this->get( '/api/users/1/quotes/random' )
             ->seeJsonStructure( [
                 'data'=>$this->singleQuoteFormat
             ] );
-
-        // $this->assertTrue(true);
     }
+
 }
