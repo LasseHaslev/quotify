@@ -3,6 +3,7 @@
 use App\Language;
 use App\User;
 use App\Quote;
+use App\Author;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,10 @@ $factory->define(App\Author::class, function (Faker\Generator $faker) {
 });
 $factory->define(App\Quote::class, function (Faker\Generator $faker) {
     return [
+        'author_id'=> function () {
+            $author = Author::all()->count() ? Author::all()->random() : factory(Author::class)->create()->id;
+            return $author->id;
+        },
     ];
 });
 $factory->define(App\QuoteLanguage::class, function (Faker\Generator $faker) {
