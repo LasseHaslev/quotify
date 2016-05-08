@@ -33,15 +33,14 @@ class QuoteModelTest extends TestCase
      * @test
      * @return void
      */
-    // public function has_access_to_contents()
-    // {
-        // $author = factory( Author::class )->create();
+    public function has_access_to_contents()
+    {
+        $author = factory( Author::class )->create();
 
-        // $quote = $author->quotes()->save( factory( Quote::class )->make() );
+        $quote = $author->quotes()->save( factory( Quote::class )->make() );
 
-        // var_dump( factory( QuoteLanguage::class )->make() );
-        // // $quote->contents()->saveMany( factory( QuoteLanguage::class, 5 )->make() );
+        $quote->contents()->saveMany( factory( QuoteLanguage::class, 5 )->make() );
 
-        // // $this->assertCount( 5, $quote->contents );
-    // }
+        $this->assertCount( 5, $quote->contents );
+    }
 }

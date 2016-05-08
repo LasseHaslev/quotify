@@ -2,6 +2,7 @@
 
 use App\Language;
 use App\User;
+use App\Quote;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,11 +44,12 @@ $factory->define(App\Quote::class, function (Faker\Generator $faker) {
     ];
 });
 $factory->define(App\QuoteLanguage::class, function (Faker\Generator $faker) {
-    $language = Language::all()->random();
     return [
         'text' => $faker->text,
-        'language_id' => $language->id,
-        'confirmed_by' => $user->id,
+        'confirmed_by'=> function () {
+            $user = User::all()->count() ? User::all()->random() : factory(User::class)->create()->id;
+            return $user->id;
+        },
         'quote_id'=> function () {
             $quote = Quote::all()->count() ? Quote::all()->random() : factory(Quote::class)->create()->id;
             return $quote->id;
