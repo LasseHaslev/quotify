@@ -1,0 +1,12 @@
+[ ] Add "add quote"
+[ ] Add "add quote content"
+[ ] Add "add quote content"
+
+[ ] Add "add author"
+
+[ ] Add "user favorite quote"
+
+[ ] Add login
+[ ] Add email confirmation
+
+[ ] 
