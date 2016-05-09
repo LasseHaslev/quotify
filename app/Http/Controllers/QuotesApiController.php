@@ -58,7 +58,8 @@ class QuotesApiController extends ApiController
      */
     public function store(Request $request)
     {
-        $quote = $this->dispatch( new StoreQuote( $request->get( 'data' ) ) );
+        $quote = $this->dispatch( new StoreQuote( $request, $request->get( 'data' ) ) );
+        echo dd($request);
         return $this->response->item( $quote, new QuoteTransformer )
             ->setStatusCode( 201 );
     }

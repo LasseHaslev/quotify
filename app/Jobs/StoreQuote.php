@@ -2,17 +2,20 @@
 
 namespace App\Jobs;
 
+use App\Quote;
+use App\Author;
 use App\Jobs\Job;
+use App\Jobs\StoreAuthor;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Quote;
-use App\Author;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 
 class StoreQuote extends Job
 {
-    use InteractsWithQueue, SerializesModels;
+    use InteractsWithQueue, SerializesModels, DispatchesJobs;
 
+    protected $request;
     protected $data;
 
     /**
@@ -20,8 +23,9 @@ class StoreQuote extends Job
      *
      * @return void
      */
-    public function __construct( $data )
+    public function __construct( $request, $data )
     {
+        $this->request = $request;
         $this->data = $data;
     }
 
@@ -32,14 +36,15 @@ class StoreQuote extends Job
      */
     public function handle()
     {
-        $author = Author::find( array_get( $this->data, 'author.data.id' ) );
+        $author = $this->dispatch( new StoreAuthor( array_get( $this->data, 'author' ) ) );
+        echo dd($author);
 
-        $quote = $author->quotes()->create([]);
+        // $quote = $author->quotes()->create([]);
 
-        $contentData = array_get( $this->data, 'content.data' );
-        $contentData[ 'language_id' ] = array_get( $this->data, 'content.data.language_id' ) ?: array_get( $this->data, 'content.data.language.data.id' );
-        $quote->contents()->create( $contentData );
+        // $contentData = array_get( $this->data, 'content.data' );
+        // $contentData[ 'language_id' ] = array_get( $this->data, 'content.data.language_id' ) ?: array_get( $this->data, 'content.data.language.data.id' );
+        // $quote->contents()->create( $contentData );
 
-        return $quote;
+        // return $quote;
     }
 }

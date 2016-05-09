@@ -4,6 +4,7 @@ use TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\User;
 
 class QuoteTest extends TestCase
 {
@@ -36,6 +37,51 @@ class QuoteTest extends TestCase
             ]
         ];
     }
+
+    /**
+     * User can create quote from nothing
+     *
+     * @test
+     * @return void
+     */
+    public function user_can_create_quote_from_nothing()
+    {
+        return;
+        $user = factory( User::class )->create();
+
+        $response = $this->call( 'POST', '/api/quotes', [
+            "data"=>[
+                "content"=>[
+                    "data"=>[
+                        "text"=>"Cumque impedit mollitia quis. Debitis rerum repellendus aliquid perspiciatis quisquam officia. Rerum est excepturi quaerat.",
+                        "language_id"=>8,
+                        "language"=>[
+                            "data"=>[
+                                "id"=>8,
+                                "code"=>"bi",
+                                "name"=>"Bislama",
+                            ]
+                        ]
+                    ]
+                ],
+                "author_id"=>1,
+                "author"=>[
+                    "data"=>[
+                        "name"=>"Aryanna Treutel",
+                        "description"=>"Suscipit nostrum dolores et. Perferendis voluptatum non veritatis harum quia quos et nisi. Voluptas aut distinctio enim. Repudiandae modi suscipit culpa consequatur sunt qui.",
+                        "link"=>"http://brakus.com/et-autem-impedit-dicta-saepe-sed",
+                        "born"=>"1955-05-01",
+                        "died"=>"2015-06-26",
+                        "created_at"=>"2016-05-07 21:32:39",
+                        "updated_at"=>"2016-05-07 21:32:39"
+                    ],
+                ]
+            ]
+        ] );
+        $this->assertEquals(201, $response->status());
+
+    }
+
 
     /**
      * Saving new quote to database
